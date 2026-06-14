@@ -337,11 +337,11 @@ nav.scrolled .brand img{height:48px}
 /* ============================================================
    GENERIC SECTION
    ============================================================ */
-.sec{padding:90px 5%}
+.sec{padding:clamp(52px,8vw,90px) 5%}
 .inner{max-width:1080px;margin:0 auto}
 .sec-eyebrow{font-size:11px;font-weight:600;letter-spacing:0.16em;text-transform:uppercase;color:var(--saff);margin-bottom:12px}
-.sec-title{font-size:clamp(24px,3vw,34px);font-weight:600;color:var(--text);margin-bottom:18px;line-height:1.3}
-.sec-desc{font-size:15px;color:var(--text-mid);max-width:680px;margin-bottom:44px;font-weight:300;line-height:1.8}
+.sec-title{font-size:clamp(22px,3vw,34px);font-weight:600;color:var(--text);margin-bottom:18px;line-height:1.3}
+.sec-desc{font-size:clamp(13.5px,1.1vw,15px);color:var(--text-mid);max-width:680px;margin-bottom:clamp(28px,4vw,44px);font-weight:300;line-height:1.8}
 
 .bg-vivid{background:linear-gradient(160deg,var(--warm) 0%,var(--yellow-pale) 55%,var(--amber-light) 100%)}
 .bg-pearl{background:var(--pearl)}
@@ -376,7 +376,7 @@ nav.scrolled .brand img{height:48px}
 .iam-hdr{display:flex;align-items:flex-start;gap:18px;margin-bottom:30px}
 .iam-icon{width:56px;height:56px;border-radius:14px;background:var(--orange-light);color:var(--saff);display:flex;align-items:center;justify-content:center;flex-shrink:0}
 .iam-icon svg{width:28px;height:28px}
-.iam-title{font-size:21px;font-weight:600;color:var(--text);margin-bottom:5px}
+.iam-title{font-size:clamp(17px,2.2vw,21px);font-weight:600;color:var(--text);margin-bottom:5px}
 .iam-sub{font-size:13.5px;color:var(--text-muted)}
 .iam-why{font-size:14px;color:var(--text-mid);font-weight:300;line-height:1.85;margin-bottom:24px;padding:18px 22px;background:var(--cream);border-radius:var(--radius-sm);border-left:3px solid var(--saff)}
 .platform-row{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:26px}
@@ -577,17 +577,33 @@ footer img{height:42px}
 
 /* ============================================================
    RESPONSIVE
+   Tiers: Desktop (>1280px, default) · Laptop (1025-1280px)
+          Tablet (769-1024px) · Large mobile (481-768px)
+          Small mobile (<=480px)
    ============================================================ */
-@media(max-width:1024px){
-  .hero-text{max-width:90%;left:5%;right:5%;top:12%;bottom:90px}
-  .hero-portrait{width:46vw;right:0;opacity:0.5}
-  .problem-grid,.pillar-grid,.lead-grid{grid-template-columns:1fr}
-  .audience-grid{grid-template-columns:repeat(2,1fr)}
-  .framework-grid{grid-template-columns:repeat(2,1fr)}
-  .insights-grid{grid-template-columns:1fr}
-  .stats-grid{grid-template-columns:repeat(2,1fr)}
+
+/* ---------- LAPTOP (<=1280px) ---------- */
+@media(max-width:1280px){
+  .hero-text h1{font-size:clamp(24px,3.4vw,38px)}
+  .stats-grid{gap:20px}
+  .connect-grid{max-width:680px}
 }
 
+/* ---------- TABLET (<=1024px) ---------- */
+@media(max-width:1024px){
+  .hero-text{max-width:55%;left:5%;right:auto;top:12%;bottom:90px}
+  .hero-portrait{width:38vw;right:0;opacity:0.65}
+  .problem-grid,.lead-grid{grid-template-columns:1fr}
+  .pillar-grid{grid-template-columns:1fr 1fr}
+  .audience-grid{grid-template-columns:repeat(2,1fr)}
+  .framework-grid{grid-template-columns:repeat(2,1fr)}
+  .insights-grid{grid-template-columns:repeat(2,1fr)}
+  .stats-grid{grid-template-columns:repeat(2,1fr)}
+  .sec{padding:72px 4.5%}
+  .iam-card,.exp-card{padding:32px}
+}
+
+/* ---------- LARGE MOBILE / SMALL TABLET (<=768px) ---------- */
 @media(max-width:768px){
   nav{padding:14px 5%}
   .nav-links{
@@ -599,38 +615,89 @@ footer img{height:42px}
   }
   .nav-links.open{transform:translateX(0)}
   .nav-toggle{display:flex}
+  .brand img{height:52px}
+  nav.scrolled .brand img{height:42px}
 
   .hero-diagonal{height:auto}
   .diag-panels{
-    position:relative;flex-direction:column;height:auto;min-height:60vh;
+    position:relative;flex-direction:column;height:auto;min-height:55vh;
   }
   .diag-panel{
-    flex:none;min-height:90px;margin-right:0;margin-bottom:-4vh;
+    flex:none;min-height:84px;margin-right:0;margin-bottom:-4vh;
   }
   .diag-panel::before{
     transform:skewY(-3deg);width:100%;height:112%;top:-6%;left:0;
   }
   .diag-panel:hover{flex-grow:0}
   .diag-panels:has(.diag-panel:hover) .diag-panel:not(:hover){flex-grow:0}
-  .dp-content{padding:20px 14px}
+  .dp-content{padding:18px 14px}
   .dp-sub{display:none}
   .hero-overlay{position:relative;padding:32px 6% 40px}
-  .hero-text{position:relative;top:0;left:0;bottom:auto;max-width:100%;text-align:center;margin-bottom:28px}
+  .hero-text{position:relative;top:0;left:0;bottom:auto;max-width:100%;text-align:center;margin-bottom:24px}
+  .hero-sub{max-width:100%;margin-left:auto;margin-right:auto}
   .hero-btns{justify-content:center}
-  .hero-portrait{position:relative;width:60%;max-width:280px;margin:0 auto;opacity:1}
+  .hero-portrait{position:relative;width:55%;max-width:280px;margin:0 auto;opacity:1}
   .scroll-cue{display:none}
 
-  .sec{padding:56px 5%}
+  .sec{padding:52px 5.5%}
+  .sec-title{font-size:clamp(22px,5.5vw,28px)}
+  .sec-desc{font-size:14px;margin-bottom:32px}
+  .stats{padding:36px 5%}
   .stats-grid{grid-template-columns:repeat(2,1fr);gap:18px}
+  .stat-n{font-size:30px}
+  .aud-strip{padding:16px 5%;justify-content:center}
   .audience-grid{grid-template-columns:1fr}
   .framework-grid{grid-template-columns:1fr}
-  footer{flex-direction:column;text-align:center}
+  .insights-grid{grid-template-columns:1fr}
+  .iam-card,.exp-card{padding:24px}
+  .iam-hdr{flex-direction:column;align-items:flex-start;gap:12px}
+  .connect-sec{padding:64px 5.5%}
+  .connect-grid{grid-template-columns:repeat(2,1fr)}
+  footer{flex-direction:column;text-align:center;padding:28px 5.5%}
+  .footer-links{justify-content:center}
+  .wa-float{width:52px;height:52px;bottom:18px;right:18px}
+  .wa-float svg{width:24px;height:24px}
 }
 
+/* ---------- SMALL MOBILE (<=480px) ---------- */
 @media(max-width:480px){
-  .hero-text{padding:28px 22px}
-  .hero-text h1{font-size:26px}
-  .iam-card,.exp-card{padding:24px}
+  .brand img{height:46px}
+  nav.scrolled .brand img{height:38px}
+  .hero-text h1{font-size:24px}
+  .hero-sub{font-size:13px}
+  .btn{padding:11px 22px;font-size:12.5px}
+  .hero-portrait{width:65%;max-width:230px}
+  .dp-title{font-size:12px}
+  .dp-icon{width:30px;height:30px}
+  .dp-icon svg{width:15px;height:15px}
+
+  .sec{padding:44px 5.5%}
+  .iam-card,.exp-card{padding:20px}
+  .feat-badge,.exp-badge{font-size:10px;padding:4px 14px;left:20px}
+  .iam-title{font-size:18px}
+  .platform-row{gap:6px}
+  .pc{font-size:11px;padding:5px 12px}
+  .topics{gap:5px}
+  .tp{font-size:11.5px;padding:4px 11px}
+
+  .stats-grid{grid-template-columns:1fr;gap:14px}
+  .stat-n{font-size:28px}
+
+  .connect-grid{grid-template-columns:1fr}
+  .connect-title{font-size:22px}
+  .social-row{gap:10px}
+  .soc{width:42px;height:42px}
+
+  .lead-card{padding:18px}
+  .insight-card{padding:20px}
+}
+
+/* ---------- VERY SMALL MOBILE (<=360px) ---------- */
+@media(max-width:360px){
+  .hero-text h1{font-size:21px}
+  .nav-links{width:200px;padding:80px 22px}
+  .connect-grid{grid-template-columns:1fr}
+  .pc,.tp{font-size:11px}
 }
 
 </style>
