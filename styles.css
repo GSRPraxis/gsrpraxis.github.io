@@ -83,6 +83,8 @@ nav.scrolled .brand img{height:48px}
   overflow-x:auto;
   scrollbar-width:none;
 }
+.nav-links li{margin-right:clamp(14px,2vw,30px)}
+.nav-links li:last-child{margin-right:0}
 .nav-links::-webkit-scrollbar{display:none}
 .nav-links a{
   font-size:clamp(11px,1.1vw,13.5px);font-weight:400;color:var(--text-mid);
@@ -109,7 +111,7 @@ nav.scrolled .brand img{height:48px}
 }
 
 .diag-panels{
-  position:absolute;inset:0;
+  position:absolute;top:0;right:0;bottom:0;left:0;
   display:flex;
   z-index:1;
 }
@@ -131,7 +133,7 @@ nav.scrolled .brand img{height:48px}
 
 .diag-panel::before{
   content:'';
-  position:absolute;inset:0;
+  position:absolute;top:0;right:0;bottom:0;left:0;
   transform:skewX(-8deg);
   transform-origin:bottom;
   width:112%;
@@ -208,7 +210,7 @@ nav.scrolled .brand img{height:48px}
 
 /* Hero text + portrait — integrated into the diagonal flow, no card */
 .hero-overlay{
-  position:absolute;inset:0;z-index:5;
+  position:absolute;top:0;right:0;bottom:0;left:0;z-index:5;
   pointer-events:none;
 }
 .hero-text{
@@ -491,8 +493,9 @@ nav.scrolled .brand img{height:48px}
    ============================================================ */
 footer{background:var(--cream);padding:36px 5%;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px;border-top:1px solid var(--border-light)}
 footer img{height:42px}
-.footer-links{display:flex;gap:22px;flex-wrap:wrap}
-.footer-links a{font-size:12.5px;color:var(--text-muted);text-decoration:none}
+.footer-links{display:flex;flex-wrap:wrap;gap:22px}
+.footer-links a{font-size:12.5px;color:var(--text-muted);text-decoration:none;display:inline-block;margin-right:22px}
+.footer-links a:last-child{margin-right:0}
 .footer-links a:hover{color:var(--saff-deep)}
 .footer-copy{font-size:11.5px;color:var(--text-muted)}
 
@@ -500,8 +503,8 @@ footer img{height:42px}
    DIVIDER + REVEAL
    ============================================================ */
 .div-line{height:1px;background:linear-gradient(90deg,transparent,var(--border),transparent)}
-.reveal{opacity:0;transform:translateY(26px);transition:opacity 0.7s ease,transform 0.7s ease}
-.reveal.vis{opacity:1;transform:none}
+.js-ready .reveal{opacity:0;transform:translateY(26px);transition:opacity 0.7s ease,transform 0.7s ease}
+.js-ready .reveal.vis{opacity:1;transform:none}
 
 /* ============================================================
    SCROLL PROGRESS BAR
@@ -516,7 +519,7 @@ footer img{height:42px}
 /* ============================================================
    AMBIENT FLOATING SHAPES (parallax decoration)
    ============================================================ */
-.ambient{position:absolute;inset:0;overflow:hidden;pointer-events:none;z-index:0}
+.ambient{position:absolute;top:0;right:0;bottom:0;left:0;overflow:hidden;pointer-events:none;z-index:0}
 .ambient-shape{
   position:absolute;border-radius:50%;
   opacity:0.35;
@@ -562,53 +565,119 @@ footer img{height:42px}
 
 /* ---------- LARGE MOBILE / SMALL TABLET (<=768px) ---------- */
 @media(max-width:768px){
-  nav{padding:14px 5%}
+  nav{padding:12px 5%}
   .nav-links{
     position:fixed;top:0;right:0;height:100vh;width:240px;
     background:var(--warm);flex-direction:column;justify-content:flex-start;
+    align-items:flex-start;
     padding:90px 28px;gap:22px;
     transform:translateX(100%);transition:transform 0.35s ease;
     box-shadow:-8px 0 30px rgba(120,60,0,0.08);
+    z-index:250;
   }
   .nav-links.open{transform:translateX(0)}
-  .nav-toggle{display:flex}
-  .brand img{height:52px}
-  nav.scrolled .brand img{height:42px}
+  .nav-toggle{display:flex;z-index:260}
+  .brand img{height:48px}
+  nav.scrolled .brand img{height:40px}
 
-  .hero-diagonal{height:auto}
+  /* ---- Hero: simplified stacked layout, no diagonal/skew ---- */
+  .hero-diagonal{
+    height:auto;
+    display:flex;
+    flex-direction:column;
+    overflow:visible;
+  }
   .diag-panels{
-    position:relative;flex-direction:column;height:auto;min-height:55vh;
+    position:relative;top:auto;right:auto;bottom:auto;left:auto;
+    display:flex;
+    flex-direction:column;
+    z-index:1;
+    order:2;
   }
   .diag-panel{
-    flex:none;min-height:84px;margin-right:0;margin-bottom:-4vh;
+    flex:none;
+    height:64px;
+    margin-right:0;
+    margin-bottom:2px;
+    transform-origin:center;
+    align-items:center;
   }
   .diag-panel::before{
-    transform:skewY(-3deg);width:100%;height:112%;top:-6%;left:0;
+    transform:none;
+    width:100%;height:100%;
+    left:0;top:0;
   }
   .diag-panel:hover{flex-grow:0}
   .diag-panels:has(.diag-panel:hover) .diag-panel:not(:hover){flex-grow:0}
-  .dp-content{padding:18px 14px}
+  .diag-panels.js-active .diag-panel{flex-grow:0}
+  .diag-panels.js-active .diag-panel.js-hover{flex-grow:0}
+
+  .dp-content{padding:0 18px}
+  .dp-icon{width:30px;height:30px}
+  .dp-icon svg{width:15px;height:15px}
+  .dp-title{font-size:13px}
   .dp-sub{display:none}
-  .hero-overlay{position:relative;padding:32px 6% 40px}
-  .hero-text{position:relative;top:0;left:0;bottom:auto;max-width:100%;text-align:center;margin-bottom:24px}
-  .hero-sub{max-width:100%;margin-left:auto;margin-right:auto}
+
+  .hero-overlay{
+    position:relative;top:auto;right:auto;bottom:auto;left:auto;
+    order:1;
+    padding:36px 6% 28px;
+    display:flex;flex-direction:column;align-items:center;
+    text-align:center;
+    pointer-events:auto;
+  }
+  .hero-text{
+    position:relative;top:auto;left:auto;right:auto;bottom:auto;
+    max-width:100%;
+    margin-bottom:20px;
+    display:block;
+  }
+  .hero-eyebrow{font-size:10px;color:var(--saff-deep);text-shadow:none}
+  .hero-text h1{
+    font-size:clamp(24px,7vw,32px);
+    color:var(--text);
+    text-shadow:none;
+  }
+  .hero-text h1 em{color:var(--saff-deep)}
+  .hero-sub{
+    color:var(--text-mid);
+    text-shadow:none;
+    max-width:100%;margin-left:auto;margin-right:auto;
+  }
   .hero-btns{justify-content:center}
-  .hero-portrait{position:relative;width:55%;max-width:280px;margin:0 auto;opacity:1}
+  .btn-secondary{color:var(--saff-deep);border-color:var(--orange);background:transparent}
+  .btn-secondary:hover{background:var(--orange-light)}
+  .hero-portrait{
+    position:relative;top:auto;right:auto;bottom:auto;left:auto;
+    width:48%;max-width:220px;
+    margin:0 auto 8px;
+  }
   .scroll-cue{display:none}
 
-  .sec{padding:52px 5.5%}
+  /* ---- General sections ---- */
+  .sec{padding:48px 5.5%}
   .sec-title{font-size:clamp(22px,5.5vw,28px)}
   .sec-desc{font-size:14px;margin-bottom:32px}
-  .stats{padding:36px 5%}
-  .stats-grid{grid-template-columns:repeat(2,1fr);gap:18px}
-  .stat-n{font-size:30px}
+  .stats{padding:32px 5%}
+  .stats-grid{grid-template-columns:repeat(2,1fr);gap:16px}
+  .stat-n{font-size:28px}
+  .stat-l{font-size:11.5px}
   .aud-strip{padding:16px 5%;justify-content:center}
   .audience-grid{grid-template-columns:1fr}
   .framework-grid{grid-template-columns:1fr}
   .insights-grid{grid-template-columns:1fr}
-  .iam-card,.exp-card{padding:24px}
+  .pillar-grid{grid-template-columns:1fr}
+  .iam-card,.exp-card{padding:22px}
   .iam-hdr{flex-direction:column;align-items:flex-start;gap:12px}
-  .connect-sec{padding:64px 5.5%}
+  .pillar-hdr{align-items:flex-start}
+  .p-title{font-size:14px}
+  .feat-badge,.exp-badge{
+    position:relative;top:auto;left:auto;
+    display:inline-block;
+    margin-bottom:14px;
+  }
+  .iam-card,.exp-card{padding-top:26px}
+  .connect-sec{padding:56px 5.5%}
   .connect-grid{grid-template-columns:repeat(2,1fr)}
   footer{flex-direction:column;text-align:center;padding:28px 5.5%}
   .footer-links{justify-content:center}
@@ -624,13 +693,17 @@ footer img{height:42px}
   .hero-sub{font-size:13px}
   .btn{padding:11px 22px;font-size:12.5px}
   .hero-portrait{width:65%;max-width:230px}
+  .diag-panel{height:56px}
   .dp-title{font-size:12px}
   .dp-icon{width:30px;height:30px}
   .dp-icon svg{width:15px;height:15px}
 
   .sec{padding:44px 5.5%}
   .iam-card,.exp-card{padding:20px}
-  .feat-badge,.exp-badge{font-size:10px;padding:4px 14px;left:20px}
+  .feat-badge,.exp-badge{
+    font-size:10px;padding:5px 14px;
+    margin-bottom:16px;
+  }
   .iam-title{font-size:18px}
   .platform-row{gap:6px}
   .pc{font-size:11px;padding:5px 12px}

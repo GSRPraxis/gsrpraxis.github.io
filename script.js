@@ -6,6 +6,11 @@
    - Smooth in-page navigation for diagonal panels & nav links
    ============================================================ */
 
+/* Enable reveal animations only when JS is confirmed running.
+   Runs immediately on script parse (script is at end of body,
+   so <html> already exists) — avoids any flash of hidden content. */
+document.documentElement.classList.add('js-ready');
+
 document.addEventListener('DOMContentLoaded', function () {
 
   /* Sticky nav background on scroll */
